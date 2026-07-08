@@ -1,5 +1,5 @@
 <div>
-  <a href="https://github.aexp.com/ndushyan">
+  <a href="https://github.com/ddusht">
     <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3djdka2hxY3pscjB0dnRjemJnODJ2c28wbjZldTlwajJhY2E2c2trMyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/3SEs8XdAX7XxW004bu/giphy.gif"
          width="100" alt="Dushyant" />
   </a>
