@@ -130,20 +130,6 @@ A request falls through daemon, regional cache and build server only on a miss; 
 
 Closest prior art: Bazel remote execution (Blaze/Forge internally, BuildBuddy and EngFlow commercially), Nix binary caches and Depot. None pairs that service model with buildpacks' zero-config detection.
 
-## Practical note: Paketo Java reinstalling the JDK and Maven
-
-When Paketo's Azul Zulu and Maven buildpacks reinstall every build, the cache is almost always not surviving between builds. Check the log: `Reusing cached layer` means the cache worked; `Contributing to layer` means a reinstall. `BP_LOG_LEVEL=DEBUG` shows why a layer was rejected.
-
-| Cause | Fix |
-| --- | --- |
-| Ephemeral CI runners lose pack's local cache volume | `--publish --cache-image registry/myapp-cache`, or a cache PVC on kpack and Tekton |
-| Image name changes every build (`myapp:${GIT_SHA}`) | Build to a stable name, add tags after, or use `--cache-image` |
-| Previous image missing, so the JRE launch layer cannot be reused | Keep the last image in the daemon or registry under the same name |
-| Builder pulled fresh, bringing a new JDK patch | Pin `BP_JVM_VERSION=21`, pin the builder digest, `--pull-policy if-not-present` |
-| `--clear-cache` set in a CI template | Remove it |
-
-To speed up reinstalls that do happen, point `BP_DEPENDENCY_MIRROR` at an internal Artifactory or Nexus, and bind a Maven `settings.xml` that uses the internal repository.
-
 ## Sources
 
 - [Redesigning source control at Anthropic](https://anthropic.com/engineering/redesigning-source-control)
